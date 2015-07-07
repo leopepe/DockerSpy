@@ -32,7 +32,7 @@ class DockerSpy(Client):
         # Testing event_listener()
 
 
-        def generate_confd():
+        def node_config_generator():
             nginx_conf_path = 'default.conf'  # '/etc/nginx/conf.d/default.conf'
             template_base = open('./template_base', 'r').read()
             confd_data = ''
@@ -66,7 +66,7 @@ class DockerSpy(Client):
                         print('Container {name} status changed to {status}'.format(name=event['from'], status=event['status']))
                         _save(data=_generate())
 
-        generate_confd()
+        node_config_generator()
 
     """
     def __init__(self, container_name=None, unix_domain='unix://var/run/docker.sock'):
@@ -122,9 +122,7 @@ class DockerSpy(Client):
 
     def list_containers(self):
         try:
-            # list live containers names
-            # containers = [{'Name': container['Names'][0].replace('/', '')} for container in docker.containers()]
-            # containers = {'Name': container['Names'][0].replace('/', '') for container in docker.containers()}
+            # list live containers names using list comprehension
             containers = [container['Names'][0].replace('/', '') for container in self.client.containers()]
             return containers
         except Exception:

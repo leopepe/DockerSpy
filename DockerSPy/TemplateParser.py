@@ -15,12 +15,16 @@ class TemplateParser:
 
     """
     def __init__(self, template_path='./templates/template'):
-        self.template = None
+        self.template_data = None
         with open(template_path, 'r') as template_file:
-            self.template = template_file.read()
+            self.template_data = template_file.read()
 
     def replace_node_info(self, container_info):
-        data = self.template.replace(
+        """
+
+        :rtype : object
+        """
+        data = self.template_data.replace(
             '<container_vhost>', container_info['vhost']
         ).replace(
             '<container_ip>', container_info['ip']
