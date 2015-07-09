@@ -19,19 +19,12 @@ class TemplateParser:
         with open(template_path, 'r') as template_file:
             self.template_data = template_file.read()
 
-    def replace_node_info(self, container_info):
-        """
-
-        :rtype : object
-        """
+    def replace_data(self, **kwargs):
         data = self.template_data.replace(
-            '<container_vhost>', container_info['vhost']
+            '<container_vhost>', kwargs.get('vhost', '')
         ).replace(
-            '<container_ip>', container_info['ip']
+            '<container_ip>', kwargs.get('ip', '')
         ).replace(
-            '<container_port>', container_info['port']
+            '<container_port>', kwargs.get('port', '')
         )
-
         return data
-
-
