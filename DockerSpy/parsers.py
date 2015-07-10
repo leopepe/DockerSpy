@@ -14,7 +14,7 @@ class TemplateParser:
         print(parser.replace_node_info(container_info=container_info))
 
     """
-    def __init__(self, template_path='./templates/template'):
+    def __init__(self, template_path='./templates/nginx-https_offload_management_redirect-sample-1.0.conf'):
         self.template_data = None
         with open(template_path, 'r') as template_file:
             self.template_data = template_file.read()

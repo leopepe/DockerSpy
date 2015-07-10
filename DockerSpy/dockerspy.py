@@ -7,6 +7,17 @@ from docker import Client
 
 class DockerSpy:
     """
+        # Usage:
+        docker = DockerSpy(container_api_url='unix://var/run/docker.sock')
+        # print docker information
+        print(docker.describe_containers)
+        print(docker.env(container='chargeback-sync'))
+        print(docker.virtual_port(container='chargeback-sync'))
+        print(docker.ip_address(container='chargeback-sync'))
+        # listen to events from docker API, similar to docker events
+        docker.events()
+        # print all containers information as a dictionary structure
+        docker.containers
 
     """
     def __init__(self, container=None, container_api_url='unix://var/run/docker.sock'):
@@ -104,15 +115,3 @@ class DockerSpy:
 
     def memberof(self, service_name):
         pass
-
-
-if __name__ == '__main__':
-    docker = DockerSpy()
-    # print(docker.describe_containers)
-    # print(docker.env(container='chargeback-sync'))
-    # print(docker.virtual_port(container='chargeback-sync'))
-    # print(docker.ip_address(container='chargeback-sync'))
-    # docker.events()
-    # for container, info in docker.describe_containers.items():
-    #     print(getattr(docker, 'containers')['chargeback-sync'])
-
