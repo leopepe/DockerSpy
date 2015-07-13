@@ -31,12 +31,12 @@ def main():
         """
         for container in docker.describe_containers:
             # local vars to easy code management
-            vhost = docker.containers[container]['Config']['Env']['VIRTUAL_HOST']
-            port = docker.containers[container]['Config']['Env']['VIRTUAL_PORT']
-            ip = docker.containers[container]['NetworkSettings']['IPAddress']
-            # node name created based on containers name
-            node_config_file = '/etc/nginx/conf.d/{0}.conf'.format(container)
-            if vhost and port:
+            if 'VIRTUAL_HOST' in docker.containers[container]['Config']['Env'].keys():
+                vhost = docker.containers[container]['Config']['Env']['VIRTUAL_HOST']
+                port = docker.containers[container]['Config']['Env']['VIRTUAL_PORT']
+                ip = docker.containers[container]['NetworkSettings']['IPAddress']
+                # node name created based on containers name
+                node_config_file = '/etc/nginx/conf.d/{0}.conf'.format(container)
                 data = parser.replace_data(ip=ip, vhost=vhost, port=port)
                 with open(node_config_file, 'w+') as config_file:
                     config_file.write(data)
