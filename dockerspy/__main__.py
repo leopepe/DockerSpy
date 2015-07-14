@@ -43,7 +43,8 @@ def main():
                 with open(node_config_file, 'w+') as config_file:
                     config_file.write(data)
 
-        call(['/etc/init.d/nginx', 'reload'])
+        # Call nginx to be insert already live containers
+        call(['/usr/sbin/nginx', 'reload'])
 
     sys.stdout.write('dockerspy: Generating nodes config files')
     _config_gen()
@@ -58,7 +59,7 @@ def main():
                 container_name = event['from'].split('/')[1] + '.conf'
                 node = os.path.join(nginx_conf_dir, container_name)
                 os.remove(node)
-                call(['/etc/init.d/nginx', 'reload'])
+                call(['/usr/sbin/nginx', 'reload'])
 
 if __name__ == '__main__':
     main()

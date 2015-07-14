@@ -4,10 +4,19 @@ The purpose of the project is to implement a service that inspects the Docker AP
 
 DockerSpy expects that each container being bring up will set an environment variable exposing the virtual host and virtual port.
 
-## Usage
-Up to now the application must be bring up using:
+## Install
 
-   $ python3 -m DockerSpy -u 'unix://var/run/docker.sock' -o '/etc/nginx/conf.d/' -t '/home/leonardo/PycharmProjects/DockerSPy/DockerSpy/templates/node.nodomain.conf'
+Choose an empty directory and run the commands below to install it.
+ 
+  $ cd /tmp
+  $ git clone https://github.com/leopepe/DockerSpy.git
+  $ cd dockerspy ; python setup.py install
+
+## Usage
+
+To start the dockerspy process in foreground:
+
+   $ dockerspy -u 'unix://var/run/docker.sock' -o '/etc/nginx/conf.d/' -t 'templates/node.nodomain.conf'
 
 It will start in foreground and locks the terminal. Use '&' to send it to background or use it with a process supervisory system such as Supervisor, Circus, forego etc.
 
@@ -15,7 +24,6 @@ It will start in foreground and locks the terminal. Use '&' to send it to backgr
 
 - PyDocs
 - System logging
-- Proper python distribution package
 
 ## Release: 1.0
 - The containers must be bring up with 2 environment variables VIRTUAL_HOST and VIRTUAL_PORT
@@ -24,3 +32,4 @@ It will start in foreground and locks the terminal. Use '&' to send it to backgr
 - Flexible template usage. Users can use -t option in CLI to specify the template file to be used to generate the config
  files for nodes.
 - Config and Args parser
+- Proper python distribution package
