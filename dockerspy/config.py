@@ -1,14 +1,15 @@
 __author__ = 'leonardo'
 
 import argparse
-from . import version
+from dockerspy import name
+
 
 def configurator():
-    parser = argparse.ArgumentParser(prog=version.name, description='DockerSpy agent options and arguments')
+    parser = argparse.ArgumentParser(prog=name, description='dockerspy agent options and arguments')
     parser.add_argument('-t', '--template',
                         dest='template_path',
                         help='Template file to be used as base to generate the cluster node config.',
-                        default='./templates/node.nodomain.conf')
+                        default='node.nodomain.conf')
     parser.add_argument('-o', '--output-directory',
                         dest='output_dir',
                         help='Full path where config files must be generated.',

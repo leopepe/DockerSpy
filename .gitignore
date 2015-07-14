@@ -1,0 +1,6 @@
+*.pyc
+*.data
+*.dat
+.idea
+.idea*
+__pycache__

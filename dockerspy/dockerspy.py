@@ -8,7 +8,7 @@ from docker import Client
 class DockerSpy:
     """
         # Usage:
-        docker = DockerSpy(container_api_url='unix://var/run/docker.sock')
+        docker = dockerspy(container_api_url='unix://var/run/docker.sock')
         # print docker information
         print(docker.describe_containers)
         print(docker.env(container='chargeback-sync'))
@@ -23,7 +23,7 @@ class DockerSpy:
     def __init__(self, container=None, container_api_url='unix://var/run/docker.sock'):
         """
         :rtype: object
-        :type DockerSpy: object
+        :type dockerspy: object
         """
         self._client = Client(base_url=container_api_url)
         self.containers = {}

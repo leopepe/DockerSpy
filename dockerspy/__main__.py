@@ -1,12 +1,13 @@
 #!/usr/bin/env python
+
 __author__ = 'leonardo'
 
 from subprocess import call
 import os
 import sys
-from DockerSpy.dockerspy import DockerSpy
-from DockerSpy.parsers import TemplateParser
-from DockerSpy import config
+from dockerspy.dockerspy import DockerSpy
+from dockerspy.parsers import TemplateParser
+from dockerspy import config
 
 """
 # constants
@@ -15,6 +16,7 @@ TEMPLATE_DIR = os.path.join(PROJECT_DIR, 'templates')
 TEMPLATE = os.path.join(TEMPLATE_DIR, 'node.nodomain.conf')
 NGINX_CONFIG = os.path.abspath('/etc/nginx/conf.d')
 """
+
 
 def main():
     options = config.configurator().parse_args()
@@ -43,20 +45,20 @@ def main():
 
         call(['/etc/init.d/nginx', 'reload'])
 
-    sys.stdout.write('DockerSpy: Generating nodes config files')
+    sys.stdout.write('dockerspy: Generating nodes config files')
     _config_gen()
 
     while True:
         for event in docker.events().__iter__():
             if event['status'] == 'start':
-                sys.stdout.write('DockerSpy: Generating nodes config files from started containers')
+                sys.stdout.write('dockerspy: Generating nodes config files from started containers')
                 _config_gen()
             elif event['status'] == 'stop':
-                sys.stdout.write('DockerSpy: Generating nodes config files from stopped containers')
+                sys.stdout.write('dockerspy: Generating nodes config files from stopped containers')
                 container_name = event['from'].split('/')[1] + '.conf'
                 node = os.path.join(nginx_conf_dir, container_name)
                 os.remove(node)
                 call(['/etc/init.d/nginx', 'reload'])
 
 if __name__ == '__main__':
-    sys.exit(main())
+    main()
