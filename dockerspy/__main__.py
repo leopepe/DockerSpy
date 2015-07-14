@@ -44,7 +44,7 @@ def main():
                     config_file.write(data)
 
         # Call nginx to be insert already live containers
-        call(['/usr/sbin/nginx', 'reload'])
+        call(['/usr/sbin/nginx', '-s', 'reload'])
 
     sys.stdout.write('dockerspy: Generating nodes config files')
     _config_gen()
@@ -59,7 +59,7 @@ def main():
                 container_name = event['from'].split('/')[1] + '.conf'
                 node = os.path.join(nginx_conf_dir, container_name)
                 os.remove(node)
-                call(['/usr/sbin/nginx', 'reload'])
+                call(['/usr/sbin/nginx', '-s', 'reload'])
 
 if __name__ == '__main__':
     main()
